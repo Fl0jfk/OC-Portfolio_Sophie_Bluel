@@ -2,11 +2,6 @@
 const reponse = await fetch('http://localhost:5678/api/works/');
 const projet = await reponse.json();
 
-const boutonFiltrerTous = document.querySelector(".btn-tous");
-const boutonFiltrerObjets = document.querySelector(".btn-objets");
-const boutonFiltrerAppartements = document.querySelector(".btn-appartements");
-const boutonFiltrerHotels = document.querySelector(".btn-hotels");
-
 function genererProjet(projet){
     for (let i = 0; i < projet.length; i++) {
         const figure = projet[i];
@@ -29,37 +24,28 @@ function genererProjet(projet){
 
 genererProjet(projet);
 
+const buttonFilter = document.querySelectorAll(".btn-filter");
+for (let x = 0; x < buttonFilter.length; x++){
+	buttonFilter[x].addEventListener("click", boutonFiltrerTous);
 
-// Function Filtre 
+}
 
-boutonFiltrerTous.addEventListener("click", function () {
-    const projetFiltreesTous = projet.filter(function (projet) {
-        return projet.categoryId;
-    });
-    document.querySelector(".gallery").innerHTML = "";
-    genererProjet(projetFiltreesTous);
-});
-
-boutonFiltrerObjets.addEventListener("click", function () {
-    const projetFiltreesObjets = projet.filter(function (projet) {
-        return projet.categoryId <= 1 ;
-    });
-    document.querySelector(".gallery").innerHTML = "";
-    genererProjet(projetFiltreesObjets);
-});
-
-boutonFiltrerAppartements.addEventListener("click", function () {
-    const projetFiltreesAppartements = projet.filter(function (projet) {
-        return projet.categoryId <= 2 ;
-    });
-    document.querySelector(".gallery").innerHTML = "";
-    genererProjet(projetFiltreesAppartements);
-});
-
-boutonFiltrerHotels.addEventListener("click", function () {
+function boutonFiltrerTous(clickEvent) {
+    const classButtonFilter = clickEvent.target;
     const projetFiltreesHotels = projet.filter(function (projet) {
-        return projet.categoryId <= 3 ;
+        if (classButtonFilter.classList.value === "btn-filter btn-tous"){
+            
+            return projet.categoryId;
+        } else if(classButtonFilter.classList.value === "btn-filter btn-objets") {
+            return  projet.categoryId <=1;
+        } else if(classButtonFilter.classList.value === "btn-filter btn-appartements"){
+            return  projet.categoryId <=2;
+        } else {
+            return  projet.categoryId <=3;
+        }
     });
+    classButtonFilter.classList.add("active");
+    console.log(classButtonFilter)
     document.querySelector(".gallery").innerHTML = "";
     genererProjet(projetFiltreesHotels);
-});
+}
