@@ -23,7 +23,7 @@ form.addEventListener("submit", function(event){
           localStorage.setItem("token", user.token);
           window.location.href = "index.html";
         } else {
-          error.textContent = "Email ou mot de passe incorrect";
+          error.textContent = "Erreur dans l’identifiant ou le mot de passe";
         }
       });
     });
