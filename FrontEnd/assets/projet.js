@@ -31,9 +31,13 @@ for (let x = 0; x < buttonFilter.length; x++){
 
 function boutonFiltrerTous(clickEvent) {
     const classButtonFilter = clickEvent.target;
-    classButtonFilter.classList.add("active");
+    const buttonFilterLink = document.querySelectorAll(".btn-filter");
+    for (let i = 0; i < buttonFilterLink.length; i++){
+        buttonFilterLink[i].classList.remove("active");
+        classButtonFilter.classList.add("active");
+    }
     const projetFiltreesHotels = projet.filter(function (projet) {
-        if (classButtonFilter.classList.value === "btn-filter btn-tous active" || classButtonFilter.classList.value === "btn-filter btn-tous"){   
+        if (classButtonFilter.classList.value === "btn-filter btn-tous active" || classButtonFilter.classList.value === "btn-filter btn-tous"){         
             return  projet.categoryId;
         } else if(classButtonFilter.classList.value === "btn-filter btn-objets active" || classButtonFilter.classList.value === "btn-filter btn-objets") {
             return  projet.categoryId ===1;
