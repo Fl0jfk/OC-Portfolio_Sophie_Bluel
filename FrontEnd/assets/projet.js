@@ -2,6 +2,8 @@
 const reponse = await fetch('http://localhost:5678/api/works/');
 const projet = await reponse.json();
 const buttonFilter = document.querySelectorAll(".btn-filter");
+const adminBar = document.querySelector(".adminBar");
+const token = localStorage.getItem("token");
 
 function genererProjet(projet){
     for (let i = 0; i < projet.length; i++) {
@@ -50,3 +52,13 @@ function boutonFiltrerTous(clickEvent) {
     document.querySelector(".gallery").innerHTML = "";
     genererProjet(projetFiltreesHotels);
 }
+
+function adminBarActivate (adminBar, token){
+  if (token) {
+      adminBar.style.display = "flex";
+  } else {
+    adminBar.style.display = "none";
+  }
+}
+
+adminBarActivate(adminBar, token);

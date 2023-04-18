@@ -31,6 +31,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
+	padding-top: 50px;
 	line-height: 1;
 }
 ol, ul {
@@ -59,7 +60,6 @@ body {
 	height: 100%;
 	font-size: 14px;
 	background-color: #fffef8;
-	padding-top: 50px;
 }
 
 main {
@@ -295,4 +295,24 @@ footer nav ul {
 #log-in textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.adminBar {
+	background-color: black;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height : 80px;
+	margin-top: -50px;
+	gap :10px;
+}
+
+.pAdminBar {
+	color: white;
+}
+
+.logoAdminBar {
+	color: white;
 }
