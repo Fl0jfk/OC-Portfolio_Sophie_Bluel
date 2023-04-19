@@ -30,6 +30,11 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
+*:focus {
+	box-shadow: 0 0 10px blue;
+}
+
 body {
 	padding-top: 50px;
 	line-height: 1;
@@ -157,7 +162,6 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
 }
 .gallery {
 	width: 100%;
@@ -169,8 +173,8 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
 }
+
 #contact {
 	width: 50%;
 margin: auto;
@@ -313,6 +317,125 @@ footer nav ul {
 	color: white;
 }
 
-.logoAdminBar {
+.fa-pen-to-square {
+	font-size: 20px;
+}
+
+.test {
+	display: flex;
+	gap : 5px;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn-publish {
+	cursor : pointer;
+}
+
+.color-white {
 	color: white;
 }
+
+.titlePortfolio {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 1em;
+	gap :3em;
+}
+
+.btnModify {
+	margin-top: 15px;
+	margin-left: 10%;
+}
+
+.btnCloseModal {
+	align-self: flex-end;
+	font-size: 20px;
+	text-align: center;
+	border: 0px;
+	background-color: white;
+}
+
+.modal {
+	display: flex;
+	position: fixed;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.8);
+	animation: fadeIn 1000ms both;
+}
+
+.modal-wrapper {
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+	background-color: white;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 20px);
+	width: 800px;
+	height :1000px;
+	padding: 30px;
+	animation: slideFromTop 1000ms both;
+}
+
+.modal[aria-hidden = "true"] {
+	animation-name: fadeOut;
+}
+
+.modal-wrapper[aria-hidden = "true"] {
+	animation-name: slideToBottom;
+}
+
+@keyframes fadeIn {
+	from {opacity: 0;}
+	to { opacity: 1;}
+}
+
+@keyframes slideFromTop {
+	from {transform: translateY (-50px);}
+	to {transform: translateY (0px);}
+}
+
+@keyframes fadeOut {
+	from {opacity: 1;}
+	to { opacity: 0;}
+}
+
+@keyframes slideToBottom {
+	from {transform: translateY (0px);}
+	to {transform: translateY (-50px);}
+}
+
+.galleryModal {
+	padding: 50px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.imgModal {
+	width : 100%;
+}
+
+.fa-trash-can {
+	position :absolute;
+	text-align: center;
+	padding-top: 5px;
+	color: white;
+	margin-left: 93px;
+	margin-top : 5px;
+	width: 25px;
+	height: 20px;
+	background-color: rgba(0,0,0,0.8);
+}
+
+.traitModal {
+	text-align: center;
+}
+

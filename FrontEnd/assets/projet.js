@@ -3,6 +3,9 @@ const reponse = await fetch('http://localhost:5678/api/works/');
 const projet = await reponse.json();
 const buttonFilter = document.querySelectorAll(".btn-filter");
 const adminBar = document.querySelector(".adminBar");
+const btnModify = document.querySelector(".btnModify");
+const btnModify2 = document.querySelector(".btnModify2");
+const btnModify3 = document.querySelector(".btnModify3");
 const token = localStorage.getItem("token");
 
 function genererProjet(projet){
@@ -53,12 +56,118 @@ function boutonFiltrerTous(clickEvent) {
     genererProjet(projetFiltreesHotels);
 }
 
-function adminBarActivate (adminBar, token){
+function adminBarActivate (adminBar, token, btnModify, btnModify2, btnModify3){
   if (token) {
-      adminBar.style.display = "flex";
+      adminBar.style.display = null;
+      btnModify.style.display = null;
+      btnModify2.style.display = null;
+      btnModify3.style.display = null;
   } else {
     adminBar.style.display = "none";
+    btnModify.style.display = "none";
+    btnModify2.style.display = "none";
+    btnModify3.style.display = "none";
   }
 }
 
-adminBarActivate(adminBar, token);
+adminBarActivate(adminBar, token, btnModify, btnModify2, btnModify3);
+
+
+let modal = null;
+const focusableSelector = "button, a, input, textarea";
+let focusables = [];
+let previouslyFocusedElement = null;
+
+const openModal = function (e) {
+    e.preventDefault();
+    modal = document.querySelector(e.target.getAttribute("href"));
+    focusables = Array.from(modal.querySelectorAll(focusableSelector));
+    previouslyFocusedElement = document.querySelector(":focus");
+    modal.style.display = null;
+    //focusables[1].focus();
+    modal.removeAttribute("aria-hidden");
+    modal.setAttribute("aria-modal", "true");
+    modal.addEventListener("click", closeModal);
+    modal.querySelector(".btnCloseModal").addEventListener("click", closeModal);
+    modal.querySelector(".modalStop").addEventListener("click", stopPropagation);
+}
+
+const closeModal = function (e) {
+    if (modal === null) return;
+    if (previouslyFocusedElement !== null) previouslyFocusedElement.focus();
+    e.preventDefault();
+    modal.setAttribute("aria-hidden", "true");
+    modal.removeAttribute("aria-modal");
+    modal.removeEventListener("click", closeModal);
+    modal.querySelector(".btnCloseModal").removeEventListener("click", closeModal);
+    modal.querySelector(".modalStop").removeEventListener("click", stopPropagation);
+    const hideModal = function(){
+        modal.style.display = "none";
+        modal.removeEventListener("animationend", hideModal)
+        modal = null;
+    }
+    modal.addEventListener("animationend", hideModal)
+}
+
+const stopPropagation = function (e) {
+    event.stopPropagation();
+}
+
+const focusInModal = function(e) {
+    e.preventDefault();
+    let index = focusables.findIndex(f => f === modal.querySelector(":focus"));
+    if (e.shiftKey === true ){
+        index--;
+    } else {
+        index++;
+    }
+    if(index >= focusables.length) {
+        index = 0;
+    }
+    if (index < 0) {
+        index = focusables.length-1;
+    }
+
+    focusables[index].focus();
+}
+
+document.querySelectorAll(".btnModifyOpenModal").forEach(a => {
+    a.addEventListener("click", openModal);
+})
+
+window.addEventListener("keydown", function (e) {
+    if(e.key === "Escape" || e.key === "Esc"){
+        closeModal(e);
+    }
+    if(e.key === "Tab" && modal !== null){
+        focusInModal(e);
+    }
+})
+
+function genererProjetModal(projet){
+    for (let i = 0; i < projet.length; i++) {
+        const figure = projet[i];
+        // Récupération de l'élément du DOM qui accueillera les projets
+        const sectionProjet = document.querySelector(".galleryModal");
+        // Création d’une balise dédiée à un projet
+        const projetElement = document.createElement("figure");
+        // Création des balises 
+        const deleteElement = document.createElement("i");
+        deleteElement.innerText = "";   
+        deleteElement.classList.add("fa-solid");
+        deleteElement.classList.add("fa-trash-can");
+        const imageElement = document.createElement("img");
+        imageElement.src = figure.imageUrl;
+        imageElement.classList.add("imgModal");
+        imageElement.alt = figure.title;
+        const figcaptionElement = document.createElement("figcaption");
+        figcaptionElement.innerText = "éditer";   
+        // On rattache la balise article a la section Projet
+        sectionProjet.appendChild(projetElement);
+        projetElement.appendChild(deleteElement);
+        projetElement.appendChild(imageElement);
+        projetElement.appendChild(figcaptionElement);
+     }
+}
+
+genererProjetModal(projet);

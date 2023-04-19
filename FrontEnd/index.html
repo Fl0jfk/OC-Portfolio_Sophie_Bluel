@@ -8,18 +8,32 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
+	<link rel="stylesheet" href="./assets/fontawesome/css/fontawesome.css">
+	<link rel="stylesheet" href="./assets/fontawesome/css/regular.css">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script type="module" src="./assets/projet.js"></script>
 	<script type="module" src="./assets/login.js"></script>
 </head>
 <body>
 	<section class="adminBar" style="display: none;">
-		<div>
-			<i class="fa-light fa-pen-to-square"></i>
+		<div class="test">
+			<i class="fa-regular fa-pen-to-square color-white"></i>
 			<p class="pAdminBar">Mode édition</p>
 		</div>
-		<button>publier les changements</button>
+		<button class="btn-publish">publier les changements</button>
 	</section>
+	<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-modal="false" style="display: none;">
+		<div class="modal-wrapper modalStop">
+			<button class="btnCloseModal">x</button>
+			<h1 id="titlemodal">Galerie photo</h1>
+			<div class="galleryModal">
+
+			</div>
+			<div class="traitModal">______________________________________________________________</div>
+			<input type="submit" value="Ajouter une photo">
+			<a href="">Supprimer la galerie</a>
+		</div>
+	</aside>
 <header>
 	<a href="index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
 	<nav>
@@ -35,16 +49,31 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
+			<a href="#modal1" class="btnModify btnModifyOpenModal" style="display: none;">
+				<i href="#modal1" class="fa-regular fa-pen-to-square"></i>
+				<span href="#modal1">modifier</span>
+			</a>
 		</figure>
 		<article>
+			<a href="#modal1" class="btnModify2 btnModifyOpenModal" style="display: none;">
+				<i href="#modal1" class="fa-regular fa-pen-to-square"></i>
+				<span href="#modal1">modifier</span>
+			</a>
 			<h2>Designer d'espace</h2>
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
 	</section>
+	
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="titlePortfolio">
+			<h2>Mes Projets</h2>
+			<a href="#modal1" class="btnModify3 btnModifyOpenModal" style="display: none;">
+				<i href="#modal1" class="fa-regular fa-pen-to-square"></i>
+				<span href="#modal1">modifier</span>
+			</a>
+		</div>
 		<div class="btn-container-filter">
 			<button class="btn-filter btn-tous active">Tous</button>
 			<button class="btn-filter btn-objets">Objets</button>
