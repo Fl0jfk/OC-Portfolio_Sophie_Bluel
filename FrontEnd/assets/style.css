@@ -355,6 +355,7 @@ footer nav ul {
 	text-align: center;
 	border: 0px;
 	background-color: white;
+	cursor : pointer
 }
 
 .modal {
