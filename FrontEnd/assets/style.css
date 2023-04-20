@@ -61,7 +61,7 @@ body {
 	margin:auto;
 	justify-content: space-between;
 	align-items: center;
-	font-family: 'Work Sans' ;
+	font-family: 'Work Sans';
 	height: 100%;
 	font-size: 14px;
 	background-color: #fffef8;
@@ -350,12 +350,14 @@ footer nav ul {
 }
 
 .btnCloseModal {
-	align-self: flex-end;
-	font-size: 20px;
+	align-items: right;
+	position :absolute;
+	margin-left: 470px;
+	font-size: 25px;
 	text-align: center;
 	border: 0px;
 	background-color: white;
-	cursor : pointer
+	cursor : pointer;
 }
 
 .modal {
@@ -367,19 +369,19 @@ footer nav ul {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0,0,0,0.8);
+	background: rgba(0,0,0,0.5);
 	animation: fadeIn 1000ms both;
 }
 
 .modal-wrapper {
-	display: flex;
 	flex-direction: column;
-	overflow: auto;
+	align-items: center;
+	justify-content: center;
 	background-color: white;
 	max-width: calc(100vw - 20px);
 	max-height: calc(100vh - 20px);
-	width: 800px;
-	height :1000px;
+	width: 500px;
+	height :750px;
 	padding: 30px;
 	animation: slideFromTop 1000ms both;
 }
@@ -416,12 +418,13 @@ footer nav ul {
 	padding: 50px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	grid-column-gap: 20px;
+	grid-column-gap: 12px;
 	grid-row-gap: 20px;
 }
 
 .imgModal {
 	width : 100%;
+	height: 100px;
 }
 
 .fa-trash-can {
@@ -429,10 +432,10 @@ footer nav ul {
 	text-align: center;
 	padding-top: 5px;
 	color: white;
-	margin-left: 93px;
+	margin-left: 43px;
 	margin-top : 5px;
-	width: 25px;
-	height: 20px;
+	width: 22px;
+	height: 18px;
 	background-color: rgba(0,0,0,0.8);
 }
 
@@ -440,3 +443,121 @@ footer nav ul {
 	text-align: center;
 }
 
+.modal-wrapper-ajout-photo {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	overflow: auto;
+	background-color: white;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 20px);
+	width: 500px;
+	height :750px;
+	padding: 30px;
+	animation: slideFromTop 1000ms both;
+}
+
+.placementButton {
+	margin-top: 40px;
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.placementButton2 {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.btnAjoutPhoto {
+	cursor: pointer;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 1em auto ;
+	width: 300px;
+	text-align: center;
+	border-radius: 60px ;
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.deleteGallery {
+	color: red;
+	cursor: pointer;
+	width: 180px;
+	margin : 1em auto;
+	text-align: center;
+}
+
+.titleModal {
+	color: black;
+	margin-top: 1em;
+	text-align: center;
+	font-family: 'Work sans';
+	font-size: 2em;
+	font-weight: 200;
+}
+
+.btnModal {
+	font-size: 25px;
+	text-align: center;
+	border: 0px;
+	background-color: white;
+	cursor : pointer;
+}
+
+.formAjoutPhoto {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	margin : 50px;
+	margin-bottom: 25px;
+	width: 80%;
+}
+
+.backgroundGrey {
+	background-color: gainsboro;
+	height : 250px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 15px;
+}
+
+.btnValider {
+	cursor: pointer;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: gainsboro;
+	margin : 1em auto ;
+	width: 300px;
+	text-align: center;
+	border-radius: 60px ;
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.inputModal {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.labelModal {
+	margin: 2em 0 1em 0;
+}
+
+.icnModal {
+	font-size: 20px;
+}

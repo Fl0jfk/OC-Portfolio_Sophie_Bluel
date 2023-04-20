@@ -83,6 +83,11 @@ const openModal = function (e) {
     modal.addEventListener("click", closeModal);
     modal.querySelector(".btnCloseModal").addEventListener("click", closeModal);
     modal.querySelector(".modalStop").addEventListener("click", stopPropagation);
+    modal.querySelector(".modalStop2").addEventListener("click", stopPropagation);
+    if (page2modal.style.display = "flex"){
+        page1modal.style.display = null;
+        page2modal.style.display = "none";
+    }
 }
 
 const closeModal = function (e) {
@@ -93,6 +98,7 @@ const closeModal = function (e) {
     modal.removeEventListener("click", closeModal);
     modal.querySelector(".btnCloseModal").removeEventListener("click", closeModal);
     modal.querySelector(".modalStop").removeEventListener("click", stopPropagation);
+    modal.querySelector(".modalStop2").removeEventListener("click", stopPropagation);
     const hideModal = function(){
         modal.style.display = "none";
         modal.removeEventListener("animationend", hideModal)
@@ -114,6 +120,29 @@ window.addEventListener("keydown", function (e) {
         closeModal(e);
     }
 })
+
+const btnAjoutPhoto = document.querySelector(".btnAjoutPhoto");
+btnAjoutPhoto.addEventListener("click", passageModal2);
+const btnReturnModal = document.querySelector(".btnReturnModal");
+btnReturnModal.addEventListener("click", passageModal1)
+const page1modal = document.querySelector(".modal-wrapper");
+const page2modal = document.querySelector(".modal-wrapper-ajout-photo");
+
+function passageModal2 (e){
+    if (e) {
+        page1modal.style.display = "none";
+        page2modal.style.display = "flex";
+    }
+}
+
+function passageModal1 (e){
+    if (e) {
+        page1modal.style.display = null;
+        page2modal.style.display = "none";
+    }
+}
+
+
 
 function genererProjetModal(projet){
     for (let i = 0; i < projet.length; i++) {
