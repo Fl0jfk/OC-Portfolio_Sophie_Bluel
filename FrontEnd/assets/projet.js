@@ -82,6 +82,7 @@ const openModal = function (e) {
     modal.setAttribute("aria-modal", "true");
     modal.addEventListener("click", closeModal);
     modal.querySelector(".btnCloseModal").addEventListener("click", closeModal);
+    modal.querySelector(".btnCloseModal2").addEventListener("click", closeModal);
     modal.querySelector(".modalStop").addEventListener("click", stopPropagation);
     modal.querySelector(".modalStop2").addEventListener("click", stopPropagation);
     if (page2modal.style.display = "flex"){
@@ -97,6 +98,7 @@ const closeModal = function (e) {
     modal.removeAttribute("aria-modal");
     modal.removeEventListener("click", closeModal);
     modal.querySelector(".btnCloseModal").removeEventListener("click", closeModal);
+    modal.querySelector(".btnCloseModal2").removeEventListener("click", closeModal);
     modal.querySelector(".modalStop").removeEventListener("click", stopPropagation);
     modal.querySelector(".modalStop2").removeEventListener("click", stopPropagation);
     const hideModal = function(){
