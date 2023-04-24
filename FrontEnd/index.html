@@ -8,62 +8,62 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
+	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="stylesheet" href="./assets/fontawesome/css/fontawesome.css">
+	<link rel="stylesheet" href="./assets/fontawesome/css/brands.css">
 	<link rel="stylesheet" href="./assets/fontawesome/css/regular.css">
 	<link rel="stylesheet" href="./assets/fontawesome/css/solid.css">
-	<link rel="stylesheet" href="./assets/style.css">
-	<script type="module" src="./assets/projet.js"></script>
-	<script type="module" src="./assets/login.js"></script>
 </head>
 <body>
-	<section class="adminBar" style="display: none;">
-		<div class="test">
-			<i class="fa-regular fa-pen-to-square color-white"></i>
-			<p class="pAdminBar">Mode édition</p>
+<div class="admin editor-mode">
+	<p><i class="fa-regular fa-pen-to-square fa-lg"></i>Mode édition</p>
+	<button>publier les changements</button>
+</div>
+<aside id ="modal1" class="modal" aria-hidden="true" style="display:none;">
+	<div class="modal-wrapper js-stop-modal">
+		<p class="js-close-modal-gallery close-modal">x</p>
+		<h3 class="title-gallery">Galerie photos</h3>
+		<div id="modal-gallery"></div>
+		<div class="grey-line"></div>
+		<button class="modal-button">Ajouter photo</button>
+		<p class="del-gallery">Supprimer la galerie</p>
+	</div>
+	<div class="modal-add-gallery js-stop-modal-gallery" style="display:none;">
+		<div class="nav-modal-container">
+			<i class="arrow-left fa-solid fa-arrow-left"></i>
+			<p class="js-close-modal close-modal">x</p>
 		</div>
-		<button class="btn-publish">publier les changements</button>
-	</section>
-	<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-modal="false" style="display: none;">
-		<div class="modal-wrapper modalStop" style="display: flex;">
-			<i class="btnCloseModal fa-solid fa-xmark icnModal"></i>
-			<h1 id="titlemodal" class="titleModal">Galerie photo</h1>
-			<div class="galleryModal">
-
-			</div>
-			<div class="traitModal">_______________________________________________________</div>
-			<div class="placementButton">
-				<button class="btnAjoutPhoto">Ajouter une photo</button>
-				<a class="deleteGallery" href="">Supprimer la galerie</a>
-			</div>
+		<h3 class="title-gallery">Ajout Photo</h3>
+		<div class="add-gallery">			
+			<i class="fa-regular fa-image add-gallery-icon"></i>			
+			<button class="modal-gallery-button">+ Ajouter photo</button>
+			<p>jpg, png : 4mo max</p>
 		</div>
-		<div class="modal-wrapper-ajout-photo modalStop2" style="display: none;">
-			<div class="placementButton2">
-				<i href="#modal1" class="btnReturnModal btnModal fa-solid fa-arrow-left icnModal"></i>
-				<i class="btnCloseModal2 btnModal fa-solid fa-xmark icnModal"></i>
-			</div>
-			<h1 id="titlemodal" class="titleModal">Ajout photo</h1>
-			<form class="formAjoutPhoto">
-				<div class="backgroundGrey">
-					<i class="fa-solid fa-image"></i>
-					<button class="buttonTest">+ Ajouter photo</button>
-					<p>jpg, png : 4mo max</p>
-				</div>
-				<label class="labelModal" for="">Titre</label>
-				<input class="inputModal" type="text">
-				<label class="labelModal" for="">Catégorie</label>
-				<input class="inputModal" type="list">
-			</form>
-			<div class="traitModal">__________________________________________________________</div>
-			<input type="submit" class="btnValider" value="Valider">
+		<form id="upload-photo" action="http://localhost:5678/api/works">
+			<label for="title">Titre</label>
+			<input type="text" name="title" id="title">
+			<label for="category" name="category">Catégorie</label>
+			<select name="category" id="category">
+				<option value="null"></option>
+				<option value="1">Objets</option>
+				<option value="2">Appartements</option>
+				<option value="3">Hotels & restaurants</option>				
+			</select>
+		</form>
+		<div class="modal-gallery-container-button">
+			<div class="grey-line"></div>
+			<button class="modal-gallery-button-validate">Valider</button>
+			<p class="modal-gallery-error-message">Veuillez remplir tout les champs</p>		
 		</div>
-	</aside>
+	</div>
+</aside>
 <header>
-	<a href="index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
+	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<a href="login.html"><li>login</li></a>
+			<li><a class="js-login" href="login.html">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -71,39 +71,29 @@
 <main>
 	<section id="introduction">
 		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
-			<a href="#modal1" class="btnModify btnModifyOpenModal" style="display: none;">
-				<i href="#modal1" class="fa-regular fa-pen-to-square"></i>
-				<span href="#modal1">modifier</span>
-			</a>
+			<img src="./assets/images/sophie-bluel.png" alt="Photo de Sophie Bluel">
+			<a href="#modal1" class="editor-mode js-modal"><i class="fa-regular fa-pen-to-square fa-lg"></i>modifier</a>
 		</figure>
 		<article>
-			<a href="#modal1" class="btnModify2 btnModifyOpenModal" style="display: none;">
-				<i href="#modal1" class="fa-regular fa-pen-to-square"></i>
-				<span href="#modal1">modifier</span>
-			</a>
+			<a href="#modal1" class="editor-mode js-modal"><i class="fa-regular fa-pen-to-square fa-lg"></i>modifier</a>
 			<h2>Designer d'espace</h2>
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
 	</section>
-	
 	<section id="portfolio">
-		<div class="titlePortfolio">
-			<h2>Mes Projets</h2>
-			<a href="#modal1" class="btnModify3 btnModifyOpenModal" style="display: none;">
-				<i href="#modal1" class="fa-regular fa-pen-to-square"></i>
-				<span href="#modal1">modifier</span>
-			</a>
+		<div class="h2-container">
+			<h2>Mes Projets </h2>
+			<a href="#modal1" class="editor-mode js-modal"><i class="fa-regular fa-pen-to-square fa-lg"></i>modifier</a>	
 		</div>
-		<div class="btn-container-filter">
-			<button class="btn-filter btn-tous active">Tous</button>
-			<button class="btn-filter btn-objets">Objets</button>
-			<button class="btn-filter btn-appartements">Appartements</button>
-			<button class="btn-filter btn-hotels">Hôtels & restaurants</button>
+		<div class="btn-container">
+			<div class="btn-filter btn-tous active">Tous</div>
+			<div class="btn-filter btn-objets">Objets</div>
+			<div class="btn-filter btn-appartements">Appartements</div>
+			<div class="btn-filter btn-hotels">Hôtels & restaurant</div>
 		</div>
-		<div class="gallery">
+		<div id="galerry-container" class="gallery">			
 		</div>
 	</section>
 	<section id="contact">
@@ -120,12 +110,13 @@
 		</form>
 	</section>
 </main>
-</body>
 <footer>
-	<nav class="footer-nav">
+	<nav>
 		<ul>
 			<li>Mentions Légales</li>
 		</ul>
 	</nav>
 </footer>
+<script type="module" src="./assets/script.js"></script>
+</body>
 </html>
