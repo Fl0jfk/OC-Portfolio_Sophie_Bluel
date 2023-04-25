@@ -194,62 +194,70 @@ backArrow.addEventListener("click", function() {
   modalAddGallery.style.display = "none";
 });
 
-                              // Ajout De projets
+// Ajout De projets
 
-const modalGalleryBtn = document.querySelector(".modal-gallery-button");
-const uploadPhoto = document.querySelector("#upload-photo");
+const modalGalleryButton = document.querySelector(".modal-gallery-button");
+const uploadPhotoButton = document.querySelector("#upload-photo");
 const newInputImage = document.createElement("input");
+const errorMessage = document.querySelector("#modal-gallery-error-message");
+const titleForm = document.querySelector("#title");
+const categoryForm = document.querySelector("#category");
+const validateButton = document.querySelector(".modal-gallery-button-validate");
 
 newInputImage.type = "file";
 newInputImage.name = "image";
 newInputImage.accept = ".png, .jpg, .jpeg";
 newInputImage.style.display = "none";
-uploadPhoto.appendChild(newInputImage);
+uploadPhotoButton.appendChild(newInputImage);
 
-modalGalleryBtn.addEventListener("click", function() {
+modalGalleryButton.addEventListener("click", function() {
   newInputImage.click();
 });
+newInputImage.addEventListener("change", function() {  
+  const file = newInputImage.files[0];
+  addImageToForm(file); 
 
-newInputImage.addEventListener("change", function() {
-  const file = newInputImage.fieldEntrance[0];
-  addImageToForm(file);
-  const modal = document.querySelector(".modal-add-gallery");
-  const title = modal.querySelector("#title");
-  const category = modal.querySelector("#category");
-  const validate = modal.querySelector(".modal-gallery-button-validate");
-  [title, category].forEach(function(fieldEntrance) {
-    fieldEntrance.addEventListener("input", function() {      
+  [titleForm, categoryForm].forEach(function(field) {
+    field.addEventListener("input", function() {      
       var fieldsCompleted = false;
-      if (title.value.trim() !== "" && category.value !== "null") {
+      if (titleForm.value.trim() !== "" && categoryForm.value !== "null") {
         fieldsCompleted = true;
       }      
       if (fieldsCompleted) {
-        validate.style.backgroundColor = "#1D6154";
+        validateButton.style.backgroundColor = "#1D6154";
       } else {
-        validate.style.backgroundColor = "";
+        validateButton.style.backgroundColor = "";
       }
     });
   });
-  validate.addEventListener("click", function(event) {
+
+  validateButton.addEventListener("click", function(event) {
     event.preventDefault();
     const newForm = new FormData();
     newForm.append("image", file);
-    newForm.append("title", title.value);
-    newForm.append("category", category.value);
+    newForm.append("title", titleForm.value);
+    newForm.append("category", categoryForm.value);    
+      
+    if (titleForm.value.trim() === "" || categoryForm.value === "null") {
+
+      errorMessage.style.display = "block";
+      return;
+    }    
+
     fetch("http://localhost:5678/api/works", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       },
       body: newForm,
-    })    
-      .then(function(response) {
-        uploadPhoto.reset();
+    })
+      .then(function(response) {        
+        uploadPhotoButton.reset();        
         return response.json();
       })  
       .then(function(data) {
         const divGallery = document.querySelector(".gallery");
-        createGallery([data], divGallery);
+        createGallery([data], divGallery);        
       })      
       .catch(function(error) {
         console.error(error);
@@ -295,7 +303,7 @@ function resetFormAndImage() {
   addGallery.querySelector("button").style.display = "block";  
 }
 
-                 //Réinitialise l'image de la modale
+                 // Réinitialise l'image de la modale
 
 function resetModal() {
   const addGallery = document.querySelector(".add-gallery");
@@ -308,28 +316,49 @@ function resetModal() {
 }
 
                   // Supprime toute la galerie
-const deleteGallery = document.querySelector(".del-gallery")
-deleteGallery.addEventListener('click', function() {
-  const allImageId = projectsTab;
-  deleteImage(allImageId);
+
+const deleteGalleryBtn = document.querySelector(".del-gallery");
+deleteGalleryBtn.addEventListener("click", function() {
+  const confirmDeleting = confirm("Êtes-vous sûr de vouloir supprimer la galerie ?");
+  if (confirmDeleting) {
+    deleteGallery(projectsTab);    
+  }
 });
 
-function deleteImage(allImageId) {
-  fetch(`http://localhost:5678/api/works/${allImageId}`, {
+async function deleteGallery() {  
+  for (const project of projectsTab) {
+    const url = `http://localhost:5678/api/works/${project.id}`;
+    console.log(url)
+    await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    } 
+    });
+  }  
+  const gallery = document.querySelector(".gallery");
+  createGallery(projectsTab);
+  modalGallery.innerHTML = "";
+}
+
+              // Mise à jour de la galerie lors de la suppresion
+
+function deleteImage(imageId) {
+  fetch(`http://localhost:5678/api/works/${imageId}`, {
     method: 'DELETE',
     headers: {
       "Authorization": `Bearer ${localStorage.getItem("token")}`,
     }
   })
   .then(function(response) {
-    if (response.ok) {
-      const allGallery = document.querySelector(`[data-id="${allImageId}"]`);
-      allGallery.remove();
+    if (response.ok) {      
+      const galleryItem = document.querySelector(`[data-id="${imageId}"]`);
+      galleryItem.remove();
     } else {
-      console.error(`Impossible de supprimer l'image ${allImageId} de l'API.`);
+      console.error(`Impossible de supprimer l'image ${imageId} de l'API.`);
     }
   })
   .catch(function(error) {
-    console.error(`Erreur lors de la suppression de l'image ${allImageId} de l'API :`, error);
+    console.error(`Erreur lors de la suppression de l'image ${imageId} de l'API :`, error);
   });
 }
