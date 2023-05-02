@@ -71,9 +71,8 @@ function allBtnFilters(clickEvent) {
 
 //  Mode édition
 
-const jsLogin = document.querySelector(".js-login");
-
 function editorMode(){  
+  const jsLogin = document.querySelector(".js-login");
   const editorMode = document.querySelectorAll(".editor-mode");
   const filters = document.querySelector(".btn-container")
   const token = localStorage.getItem("token");  
@@ -197,34 +196,7 @@ function galleryInModal(modalElements, modalGalleryShow) {
 
 galleryInModal(modalElements, modalGalleryShow);
 
-//  Supression de toute la galerie
-
-const deleteGalleryBtn = document.querySelector(".del-gallery");
-
-deleteGalleryBtn.addEventListener("click", function() {
-  const isConfirmed = confirm("Êtes-vous sûr de vouloir supprimer tout les éléments de la galerie ?");
-  if (isConfirmed) {
-    deleteGallery(projects);
-  }
-});
-
-async function deleteGallery() {  
-  for (const project of projects) {
-    const url = `http://localhost:5678/api/works/${project.id}`;
-    await fetch(url, {
-    method: 'DELETE',
-    headers: {
-      "Authorization": `Bearer ${localStorage.getItem("token")}`,
-    } 
-    });
-  }  
-  const gallery = document.querySelector(".gallery");
-  gallery.innerHTML = "";
-  modalGalleryShow.innerHTML="";
-  projects =[]; 
-}
-
-// Mise à jour de la galerie lors de la suppression
+// Mise à jour de la galerie lors de la suppression d'un projet
 
 function deleteImage(imageId) {
   fetch(`http://localhost:5678/api/works/${imageId}`, {
@@ -244,6 +216,35 @@ function deleteImage(imageId) {
   .catch(function(error) {
     console.error(`Erreur lors de la suppression de l'image ${imageId} de l'API :`, error);
   });
+}
+
+//  Supression de toute la galerie
+
+const deleteGalleryBtn = document.querySelector(".del-gallery");
+
+deleteGalleryBtn.addEventListener("click", function() {
+  const isConfirmed = confirm("Êtes-vous sûr de vouloir supprimer tout les éléments de la galerie ?");
+  if (isConfirmed) {
+    deleteGallery(projects);
+  }
+});
+
+// Mise à jour de la galerie lors de la suppression de toute la galerie
+
+async function deleteGallery() {  
+  for (const project of projects) {
+    const url = `http://localhost:5678/api/works/${project.id}`;
+    await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    } 
+    });
+  }  
+  const gallery = document.querySelector(".gallery");
+  gallery.innerHTML = "";
+  modalGalleryShow.innerHTML="";
+  projects =[]; 
 }
 
 // Changement de page dans la modale
