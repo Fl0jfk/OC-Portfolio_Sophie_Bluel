@@ -279,11 +279,13 @@ const errorMessage = document.querySelector("#modal-gallery-error-message");
 const inputImage = document.createElement("input");
 let newInputImage = createNewInputImage();
 
+
+        // Réinitialise entièrement le formulaire
+
 function resetFormAndImage() {   
   uploadPhotoButton.reset();  
   titleForm.value = "";
   categoryForm.value = "null";
-  
   var images = addGallery.querySelectorAll("img");
   for (var i = 0; i < images.length; i++) {
     images[i].remove();
@@ -295,35 +297,35 @@ function resetFormAndImage() {
   validateButton.style.backgroundColor = "";
 }
 
+        // Ouverture de la fenêtre pour charger l'élément
+
 function createNewInputImage() {  
   inputImage.type = "file";
   inputImage.name = "image";
   inputImage.accept = ".png, .jpg, .jpeg";
   inputImage.style.display = "none";
   uploadPhotoButton.appendChild(inputImage);
-  
   inputImage.addEventListener("change", function() {
     const file = inputImage.files[0];
     addImageToForm(file);
   });
-
   return inputImage;
 }
+          // Ajoute l'image sur la page du formulaire en lui créant une URL
 
 function addImageToForm(file) {
   const img = document.createElement("img");
   img.src = URL.createObjectURL(file);
-  
   addGallery.appendChild(img);
   addGallery.querySelector("p").style.display = "none";
   addGallery.querySelector("button").style.display = "none";  
   trashIconResetForm.style.display = "block";  
-
   trashIconResetForm.addEventListener("click", function() {
     img.remove();
     resetFormAndImage();
   });
 }
+          // Appelle createNewInputImage au clic sur le bouton + ajouter photos
 
 modalGalleryButton.addEventListener("click", function() {
   if (!newInputImage) {
@@ -332,24 +334,27 @@ modalGalleryButton.addEventListener("click", function() {
   newInputImage.click();
 });
 
+        // Les infos remplies du formulaire rentrent dans le tableau
+
 [titleForm, categoryForm, inputImage].forEach(function(field) {
   field.addEventListener("input", function() {      
     var fieldsCompleted = false;
-    if (titleForm.value.trim() !== "" && categoryForm.value !== "null" && inputImage.files.length > 0) {
+    if (titleForm.value !== "" && categoryForm.value !== "null" && inputImage.files.length > 0) {
       fieldsCompleted = true;
     }      
     validateButton.style.backgroundColor = fieldsCompleted ? "#1D6154" : "";     
   });
 });
 
+          //La fonction créer un FormData et envoie une requête au serveur
+
 validateButton.addEventListener("click", function(event) {
   event.preventDefault(); 
   const file = newInputImage.files[0];  
-  if (!file || titleForm.value.trim() === "" || categoryForm.value === "null") {
+  if (!file || titleForm.value === "" || categoryForm.value === "null") {
     errorMessage.style.display = "block";
     return;
   }  
-
   const newForm = new FormData();
   newForm.append("image", file);
   newForm.append("title", titleForm.value);

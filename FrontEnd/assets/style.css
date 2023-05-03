@@ -249,6 +249,7 @@ footer nav ul {
 
 .btn, .btn-filter{
 	font-family: 'Syne';
+	background: white;
 	font-size: 16px;
 	display: flex;
 	align-items: center;
